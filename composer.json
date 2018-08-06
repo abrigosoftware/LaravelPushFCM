@@ -1,5 +1,5 @@
 {
-  "name": "louisk/laravel-push",
+  "name": "louisk/laravel-push-fcm",
   "description": "Push Notification Package for Laravel",
   "keywords": [
     "push",
@@ -7,10 +7,10 @@
     "php",
     "laravel"
   ],
-  "homepage": "https://github.com/keviinlouis/LaravelPush",
+  "homepage": "https://github.com/keviinlouis/LaravelPushFCM",
   "support": {
-    "issues": "https://github.com/keviinlouis/LaravelPush/issues",
-    "source": "https://github.com/keviinlouis/LaravelPush"
+    "issues": "https://github.com/keviinlouis/LaravelPushFCM/issues",
+    "source": "https://github.com/keviinlouis/LaravelPushFCM"
   },
   "license": "MIT",
   "authors": [
