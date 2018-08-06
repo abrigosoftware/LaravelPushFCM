@@ -6,7 +6,7 @@
  * Time: 13:45
  */
 
-namespace App\Channels;
+namespace Louis\LaravelPushFCM;
 
 use App\PushNotification\Push;
 use App\PushNotification\PushResource;
@@ -47,6 +47,8 @@ class PushService
         $ios = $this->getIosUsers($usuarios);
 
         $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setContentAvailable(true);
+
         $notificationBuilder = new PayloadNotificationBuilder($push->getTitle());
         $notificationBuilder->setBody($push->getBody());
 

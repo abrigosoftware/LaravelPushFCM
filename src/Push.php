@@ -6,7 +6,7 @@
  * Time: 14:04
  */
 
-namespace App\PushNotification;
+namespace Louis\LaravelPushFCM;
 
 
 interface Push

@@ -6,7 +6,7 @@
  * Time: 14:10
  */
 
-namespace App\PushNotification;
+namespace Louis\LaravelPushFCM;
 
 
 class PushResource

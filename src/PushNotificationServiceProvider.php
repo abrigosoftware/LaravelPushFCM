@@ -6,10 +6,10 @@
  * Time: 14:42
  */
 
-namespace App\PushNotification;
+namespace Louis\LaravelPushFCM;
 
 
-use App\Channels\PushService;
+
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,5 +20,10 @@ class PushNotificationServiceProvider extends ServiceProvider
         $this->app->make(ChannelManager::class)->extend('push', function () {
             return new PushService();
         });
+    }
+
+    public function register()
+    {
+        $this->app->register(\LaravelFCM\FCMServiceProvider::class);
     }
 }
