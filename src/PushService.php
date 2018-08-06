@@ -8,9 +8,9 @@
 
 namespace Louis\LaravelPushFCM;
 
-use App\PushNotification\Push;
-use App\PushNotification\PushResource;
-use App\PushNotification\UserWithMobile;
+use Push;
+use PushResource;
+use UserWithMobile;
 use Countable;
 use FCM;
 use Illuminate\Http\Response;
