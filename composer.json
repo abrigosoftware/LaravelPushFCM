@@ -31,12 +31,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Louis\\Zenvia\\": "src/"
+      "Louis\\LaravelPushFCM\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Louis\\Zenvia\\Test\\": "tests/"
+      "Louis\\LaravelPushFCM\\Test\\": "tests/"
     }
   },
   "extra": {
@@ -45,7 +45,7 @@
     },
     "laravel": {
       "providers": [
-        "Louis\\LaravelPush\\PushNotificationServiceProvider"
+        "Louis\\LaravelPushFCM\\PushNotificationServiceProvider"
       ]
     }
   },
