@@ -8,8 +8,6 @@
 
 namespace Louis\LaravelPushFCM;
 
-
-
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\ServiceProvider;
 
