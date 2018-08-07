@@ -139,20 +139,17 @@ class PushService
                 $deviceToken = $this->getAndroidUsers($usuario);
 
                 if($deviceToken instanceof Countable){
-                    $android + $deviceToken;
+                    $android = $android + $deviceToken;
                     continue;
                 }
-
-                if($deviceToken)
-                    $android[] = $deviceToken;
             }
             return $android;
         }
+        /**
+         * @var UserWithMobile $usuarios
+         */
+        return $usuarios->getDeviceCollection()->getDeviceTokensAndroid();
 
-        if($usuarios->getDeviceModel() == self::DEVICE_ANDROID){
-            return $usuarios->getDeviceToken();
-        }
-        return null;
     }
 
     /**
@@ -163,24 +160,21 @@ class PushService
     {
 
         if($usuarios instanceof Countable){
-            $android = [];
+            $ios = [];
             foreach($usuarios as $usuario){
                 $deviceToken = $this->getIosUsers($usuario);
 
                 if($deviceToken instanceof Countable){
-                    $android + $deviceToken;
+                    $ios = $ios + $deviceToken;
                     continue;
                 }
-
-                if($deviceToken)
-                    $android[] = $deviceToken;
             }
             return $android;
         }
 
-        if($usuarios->getDeviceModel() == self::DEVICE_IOS){
-            return $usuarios->getDeviceToken();
-        }
-        return null;
+        /**
+         * @var UserWithMobile $usuarios
+         */
+        return $usuarios->getDeviceCollection()->getDeviceTokensIos();
     }
 }

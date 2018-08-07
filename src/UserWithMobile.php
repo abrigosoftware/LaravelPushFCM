@@ -11,8 +11,6 @@ namespace Louis\LaravelPushFCM;
 
 interface UserWithMobile
 {
-    public function getDeviceModel() : string;
-
-    public function getDeviceToken() : string;
+    public function getDeviceCollection() :  DeviceCollection;
 
 }
