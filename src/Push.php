@@ -11,5 +11,5 @@ namespace Louis\LaravelPushFCM;
 
 interface Push
 {
-    public function toPush() : PushResource;
+    public function toPush($notifiable) : PushResource;
 }

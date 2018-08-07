@@ -29,13 +29,13 @@ class PushService
 
     public function send($notifiable, Push $notification)
     {
-        $this->enviar($notifiable, $notification->toPush());
+        $this->enviar($notifiable, $notification->toPush($notifiable));
     }
 
     public static function sendToMany($notifiable, Push $notification)
     {
         $pushService = new PushService();
-        $pushService->enviar($notifiable, $notification->toPush());
+        $pushService->enviar($notifiable, $notification->toPush($notifiable));
     }
 
     /**
