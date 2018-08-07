@@ -19,6 +19,7 @@ use LaravelFCM\Message\PayloadData;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use LaravelFCM\Response\DownstreamResponse;
+use Zend\Validator\File\Count;
 
 class PushService
 {
@@ -26,7 +27,7 @@ class PushService
     const DEVICE_ANDROID = 'android';
     const DEVICE_IOS = 'ios';
 
-    public function send(UserWithMobile $notifiable, Push $notification)
+    public function send($notifiable, Push $notification)
     {
         $this->enviar($notifiable, $notification->toPush());
     }
@@ -38,7 +39,7 @@ class PushService
     }
 
     /**
-     * @param UserWithMobile $usuarios
+     * @param array $usuarios
      * @param PushResource $push
      */
     public function enviar($usuarios, PushResource $push)
@@ -136,6 +137,12 @@ class PushService
             $android = [];
             foreach($usuarios as $usuario){
                 $deviceToken = $this->getAndroidUsers($usuario);
+
+                if($deviceToken instanceof Countable){
+                    $android + $deviceToken;
+                    continue;
+                }
+
                 if($deviceToken)
                     $android[] = $deviceToken;
             }
@@ -159,6 +166,12 @@ class PushService
             $android = [];
             foreach($usuarios as $usuario){
                 $deviceToken = $this->getIosUsers($usuario);
+
+                if($deviceToken instanceof Countable){
+                    $android + $deviceToken;
+                    continue;
+                }
+
                 if($deviceToken)
                     $android[] = $deviceToken;
             }
