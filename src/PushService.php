@@ -169,7 +169,7 @@ class PushService
                     continue;
                 }
             }
-            return $android;
+            return $ios;
         }
 
         /**
