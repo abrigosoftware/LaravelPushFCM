@@ -17,10 +17,6 @@ class DeviceCollection
 
     public function __construct(array $itens)
     {
-        if (count($itens) <= 0) {
-            throw new \Exception('Device Collection precisa de pelo menos um Device Resource');
-        }
-
         $this->collection = collect($itens);
     }
 
