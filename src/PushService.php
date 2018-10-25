@@ -8,9 +8,7 @@
 
 namespace Louis\LaravelPushFCM;
 
-use Louis\LaravelPushFCM\Push;
-use Louis\LaravelPushFCM\PushResource;
-use Louis\LaravelPushFCM\UserWithMobile;
+use Illuminate\Support\Collection;
 use Countable;
 use FCM;
 use Illuminate\Http\Response;
@@ -19,7 +17,6 @@ use LaravelFCM\Message\PayloadData;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use LaravelFCM\Response\DownstreamResponse;
-use Zend\Validator\File\Count;
 
 class PushService
 {
@@ -46,7 +43,6 @@ class PushService
     {
         $android = $this->getAndroidUsers($usuarios);
         $ios = $this->getIosUsers($usuarios);
-
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setContentAvailable(true);
 
@@ -59,13 +55,13 @@ class PushService
 
         if (!blank($android)) {
             $this->enviarParaAndroid($android, $optionBuilder, $dataBuilder);
-        }else{
+        } else {
             \Log::channel('notifications')->error('Sem device token android para mandar');
         }
 
         if (!blank($ios)) {
             $this->enviarParaIos($ios, $optionBuilder, $notificationBuilder, $dataBuilder);
-        }else{
+        } else {
             \Log::channel('notifications')->error('Sem device token ios para mandar');
         }
     }
@@ -89,7 +85,7 @@ class PushService
             }
             \Log::channel('notifications')->info(
                 'PushTrait notification enviado com sucesso para devices Android ' . PHP_EOL .
-                'payload: '. json_encode($data->toArray())
+                'payload: ' . json_encode($data->toArray())
             );
         } catch (\Exception $e) {
             \Log::channel('notifications')->error(
@@ -127,54 +123,52 @@ class PushService
     }
 
     /**
-     * @param Countable|UserWithMobile $usuarios
+     * @param array|Collection|UserWithMobile $usuarios
      * @return array|string|null
      */
     public function getAndroidUsers($usuarios)
     {
-
-        if($usuarios instanceof Countable){
-            $android = [];
-            foreach($usuarios as $usuario){
-                $deviceToken = $this->getAndroidUsers($usuario);
-
-                if($deviceToken instanceof Countable){
-                    $android = $android + $deviceToken;
-                    continue;
-                }
-            }
-            return $android;
+        if ($usuarios instanceof UserWithMobile) {
+            return $usuarios->getDeviceCollection()->getDeviceTokensAndroid();
         }
-        /**
-         * @var UserWithMobile $usuarios
-         */
-        return $usuarios->getDeviceCollection()->getDeviceTokensAndroid();
 
+        $android = [];
+        foreach ($usuarios as $usuario) {
+            $deviceToken = $this->getandroidUsers($usuario);
+
+            if (is_array($deviceToken)) {
+                $android = $android + $deviceToken;
+                continue;
+            }
+
+            $android[] = $deviceToken;
+        }
+
+        return $android;
     }
 
     /**
-     * @param Countable|UserWithMobile $usuarios
+     * @param array|Collection|UserWithMobile $usuarios
      * @return array
      */
     public function getIosUsers($usuarios)
     {
-
-        if($usuarios instanceof Countable){
-            $ios = [];
-            foreach($usuarios as $usuario){
-                $deviceToken = $this->getIosUsers($usuario);
-
-                if($deviceToken instanceof Countable){
-                    $ios = $ios + $deviceToken;
-                    continue;
-                }
-            }
-            return $ios;
+        if ($usuarios instanceof UserWithMobile) {
+            return $usuarios->getDeviceCollection()->getDeviceTokensIos();
         }
 
-        /**
-         * @var UserWithMobile $usuarios
-         */
-        return $usuarios->getDeviceCollection()->getDeviceTokensIos();
+        $ios = [];
+        foreach ($usuarios as $usuario) {
+            $deviceToken = $this->getIosUsers($usuario);
+            
+            if (is_array($deviceToken)) {
+                $ios = $ios + $deviceToken;
+                continue;
+            }
+            
+            $ios[] = $deviceToken;
+        }
+        
+        return $ios;
     }
 }
