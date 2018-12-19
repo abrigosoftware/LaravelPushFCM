@@ -134,7 +134,7 @@ class PushService
 
         $android = [];
         foreach ($usuarios as $usuario) {
-            $deviceToken = $this->getandroidUsers($usuario);
+            $deviceToken = $this->getAndroidUsers($usuario);
 
             if (is_array($deviceToken)) {
                 $android = $android + $deviceToken;
