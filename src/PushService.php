@@ -134,16 +134,15 @@ class PushService
 
         $android = [];
         foreach ($usuarios as $usuario) {
-            $deviceToken = $this->getAndroidUsers($usuario);
+            $deviceToken = $this->getandroidUsers($usuario);
 
             if (is_array($deviceToken)) {
-                $android = $android + $deviceToken;
+                $android = array_merge($android, $deviceToken);
                 continue;
             }
 
             $android[] = $deviceToken;
         }
-
         return $android;
     }
 
@@ -160,15 +159,15 @@ class PushService
         $ios = [];
         foreach ($usuarios as $usuario) {
             $deviceToken = $this->getIosUsers($usuario);
-            
+
             if (is_array($deviceToken)) {
-                $ios = $ios + $deviceToken;
+                $ios = array_merge($ios, $deviceToken);
                 continue;
             }
-            
+
             $ios[] = $deviceToken;
         }
-        
+
         return $ios;
     }
 }
