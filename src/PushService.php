@@ -10,7 +10,7 @@ namespace Louis\LaravelPushFCM;
 
 use Illuminate\Support\Collection;
 use Countable;
-use FCM;
+use LaravelFCM\Facades\FCM;
 use Illuminate\Http\Response;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadData;
