@@ -26,6 +26,11 @@ class PushResource
     private $data;
 
     /**
+     * @var String
+     */
+    private $clickAction;
+
+    /**
      * PushResource constructor.
      * @param String $title
      * @param String $body
@@ -39,6 +44,11 @@ class PushResource
         $data['title'] = $title;
         $data['body'] = $body;
         $this->data = $data;
+    }
+
+    public function setClickAction(String $clickAction)
+    {
+        $this->clickAction = $clickAction;
     }
 
     /**
