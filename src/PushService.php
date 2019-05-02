@@ -50,7 +50,7 @@ class PushService
         $notificationBuilder->setBody($push->getBody());
 
         $dataBuilder = new PayloadDataBuilder();
-        
+
         if($clickAction = $push->getClickAction()){
             $notificationBuilder->setClickAction($clickAction);
         }

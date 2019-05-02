@@ -54,11 +54,19 @@ class PushResource
     /**
      * @return String
      */
+    public function getClickAction(): String
+    {
+        return $this->clickAction;
+    }
+
+    /**
+     * @return String
+     */
     public function getBody(): String
     {
         return $this->body;
     }
-
+    
     /**
      * @return String
      */
