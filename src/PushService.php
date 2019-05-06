@@ -51,6 +51,10 @@ class PushService
 
         $dataBuilder = new PayloadDataBuilder();
 
+        if($clickAction = $push->getClickAction()){
+            $notificationBuilder->setClickAction($clickAction);
+        }
+
         $dataBuilder->addData($push->getData());
 
         if (!blank($android)) {
