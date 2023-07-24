@@ -56,9 +56,8 @@ class PushService
         }
 
         $dataBuilder->addData($push->getData());
-
         if (!blank($android)) {
-            $this->enviarParaAndroid($android, $optionBuilder, $dataBuilder);
+            $this->enviarParaAndroid($android, $optionBuilder, $notificationBuilder, $dataBuilder);
         } else {
             \Log::channel('notifications')->error('Sem device token android para mandar');
         }
@@ -75,15 +74,17 @@ class PushService
      * @param OptionsBuilder $optionBuilder
      * @param PayloadDataBuilder $dataBuilder
      */
-    public function enviarParaAndroid($deviceToken, OptionsBuilder $optionBuilder, PayloadDataBuilder $dataBuilder)
+    public function enviarParaAndroid($deviceToken, OptionsBuilder $optionBuilder, PayloadNotificationBuilder $notificationBuilder, PayloadDataBuilder $dataBuilder)
     {
         try {
             /** @var PayloadData $data */
             $data = $dataBuilder->build();
             $option = $optionBuilder->build();
-
+			
+			//$notificationBuilder->setIcon('notification.png');
+			$notification = $notificationBuilder->build();
             /** @var DownstreamResponse $downstreamResponse */
-            $downstreamResponse = FCM::sendTo($deviceToken, $option, null, $data);
+            $downstreamResponse = FCM::sendTo($deviceToken, $option, $notification, $data);
             if ($downstreamResponse->numberFailure() > 0) {
                 throw new \Exception('O envio falhou para ' . $downstreamResponse->numberFailure() . ' usuarios', Response::HTTP_INTERNAL_SERVER_ERROR);
             }
